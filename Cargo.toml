@@ -3,6 +3,7 @@ name = "discord-webhook-cli"
 description = "Simple CLI for Discord webhooks (not discord bots)"
 version = "0.1.0"
 edition = "2021"
+license = "MIT"
 authors = ["ActuallyHappening actuallyhappening42@gmail.com"]
 readme = "README.md"
 repository = "https://github.com/ActuallyHappening/Discord-Webhook-CLI"
