@@ -32,8 +32,6 @@ async fn main() -> Result<(), anyhow::Error> {
 	dotenv().ok();
 	human_panic::setup_panic!();
 
-	panic!("WHAT IS GOIN GON?");
-
 	info!("Beginning ...");
 
 	trace!("Parsing args ...");
