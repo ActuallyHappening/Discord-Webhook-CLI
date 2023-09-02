@@ -1,14 +1,21 @@
 [package]
 name = "discord-webhook-cli"
+description = "Simple CLI for Discord webhooks (not discord bots)"
 version = "0.1.0"
 edition = "2021"
+authors = ["ActuallyHappening actuallyhappening42@gmail.com"]
+readme = "README.md"
+repository = "https://github.com/ActuallyHappening/Discord-Webhook-CLI"
+homepage = "https://github.com/ActuallyHappening/Discord-Webhook-CLI"
+keywords = ["discord", "webhook", "cli", "command-line", "tool"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
 anyhow = "1.0.75"
-clap = { version = "4.4.2", features = ["derive"] }
+clap = { version = "4.4.2", features = ["derive", "env"] }
 dotenv = "0.15.0"
+human-panic = "1.2.0"
 reqwest = { version = "0.11.20", features = ["json"] }
 serde = { version = "1.0.188", features = ["derive"] }
 tokio = { version = "1.32.0", features = ["full"] }

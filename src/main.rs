@@ -6,11 +6,15 @@ use tracing::{info, trace};
 
 #[derive(Parser, Debug)]
 struct CliArgs {
-	#[arg(short, long, )]
-	username: Option<String>,
 
-	#[arg(short, long)]
+	#[arg(long, env = "DISCORD_WEBHOOK_CLI_URL")]
+	url: String,
+
+	#[arg(short, long, env = "DISCORD_WEBHOOK_CLI_MSG")]
 	msg: String,
+
+	#[arg(short, long, env = "DISCORD_WEBHOOK_CLI_USERNAME")]
+	username: Option<String>,
 }
 
 impl From<CliArgs> for WebhookData {
@@ -26,24 +30,22 @@ impl From<CliArgs> for WebhookData {
 async fn main() -> Result<(), anyhow::Error> {
 	tracing_subscriber::fmt::init();
 	dotenv().ok();
+	human_panic::setup_panic!();
+
+	panic!("WHAT IS GOIN GON?");
 
 	info!("Beginning ...");
 
 	trace!("Parsing args ...");
 	let args = CliArgs::parse();
-	trace!("Args parsed: {:?}", args);
-
-
-	trace!("Getting URL from environment variable {ENV_VAR} ...");
-	const ENV_VAR: &str = "DISCORD_WEBHOOK_CLI_URL";
-	let url = std::env::var(ENV_VAR).context(format!("URL not found in environment variable {ENV_VAR}"))?;
-	trace!("Found URL from environment");
+	trace!("Args parsed: {:?}", &args);
+	let url = args.url.clone();
 
 	let client = reqwest::Client::new();
 	let data: WebhookData = args.into();
 
 	trace!("Sending webhook ...");
-	let response = client.post(&url).json(&data).send().await?;
+	let response = client.post(url).json(&data).send().await?;
 	trace!("Webhook sent with response: {:?}", response);
 
 	Ok(())
